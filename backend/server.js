@@ -14,7 +14,7 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
-  })
+  }).then(()=>{console.log('connected to db')})
   .catch((error) => console.log(error.reason));
 
 const app = express();
@@ -33,5 +33,5 @@ app.get('*', (req, res) => {
 });
 
 app.listen(config.PORT, () => {
-  console.log('Server started at http://localhost:5000');
+  console.log(`Server started at http://localhost:${config.PORT}`);
 });

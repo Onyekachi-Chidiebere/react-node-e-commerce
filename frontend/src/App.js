@@ -1,6 +1,7 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 import './App.css';
+import {ShoppingCart,Person} from '@material-ui/icons';
 import HomeScreen from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
 import CartScreen from './screens/CartScreen';
@@ -16,11 +17,13 @@ import ProfileScreen from './screens/ProfileScreen';
 import OrdersScreen from './screens/OrdersScreen';
 
 function App() {
+  const [stat,setStat] = useState(false)
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
 
   const openMenu = () => {
-    document.querySelector('.sidebar').classList.add('open');
+    setStat(prev=>!prev)
+    // document.querySelector('.sidebar').classList.add('open');
   };
   const closeMenu = () => {
     document.querySelector('.sidebar').classList.remove('open');
@@ -30,13 +33,13 @@ function App() {
       <div className="grid-container">
         <header className="header">
           <div className="brand">
-            <button onClick={openMenu}>&#9776;</button>
-            <Link to="/">amazona</Link>
+            <button className='menu' onClick={openMenu}>&#9776;</button>
+            <Link to="/" className='logo' >Chidi's-Shop</Link>
           </div>
-          <div className="header-links">
-            <a href="cart.html">Cart</a>
+          <div className={`header-links ${stat}`}>
+            <a href="cart.html"><ShoppingCart className='icon'/><span>Cart</span></a>
             {userInfo ? (
-              <Link to="/profile">{userInfo.name}</Link>
+              <Link to="/profile"><Person className='icon'/><span>{userInfo.name}</span></Link>
             ) : (
               <Link to="/signin">Sign In</Link>
             )}
@@ -53,7 +56,7 @@ function App() {
             )}
           </div>
         </header>
-        <aside className="sidebar">
+        {/* <aside className="sidebar">
           <h3>Shopping Categories</h3>
           <button className="sidebar-close-button" onClick={closeMenu}>
             x
@@ -67,7 +70,7 @@ function App() {
               <Link to="/category/Shirts">Shirts</Link>
             </li>
           </ul>
-        </aside>
+        </aside> */}
         <main className="main">
           <div className="content">
             <Route path="/orders" component={OrdersScreen} />

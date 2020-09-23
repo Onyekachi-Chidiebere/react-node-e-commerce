@@ -30,7 +30,7 @@ function HomeScreen(props) {
   };
 
   return (
-    <>
+    <div className='container'>
       {category && <h2>{category}</h2>}
 
       <ul className="filter">
@@ -61,7 +61,7 @@ function HomeScreen(props) {
           {products.map((product) => (
             <li key={product._id}>
               <div className="product">
-                <Link to={'/product/' + product._id}>
+                <Link className='img-link' to={'/product/' + product._id}>
                   <img
                     className="product-image"
                     src={product.image}
@@ -84,7 +84,7 @@ function HomeScreen(props) {
           ))}
         </ul>
       )}
-    </>
+    </div>
   );
 }
 export default HomeScreen;
